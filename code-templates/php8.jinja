@@ -1,8 +1,13 @@
-from dataclasses import dataclass
+<php declare(strict_types=1);
 
-@dataclass
-class {{ poco.name }}:
-	name: str
-	unit: float
-	some: int = 0
+{% if "description" in poco %}
+/**
+ * {{ poco.description }}
+ */
+{%- endif %}
+class {{ poco.name }} {
+{% for prop in poco.props %}
+	public ${{ prop.name }};
+{%- endfor %}
+}
 

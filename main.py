@@ -27,9 +27,11 @@ def main(from_file, to_file, to_language):
     with open(from_file, 'r') as f:
         data = yaml.load(f, Loader=SafeLoader)
 
+    logging.debug(data)
+
     tpl_loader = jinja2.FileSystemLoader(searchpath="code-templates")
     tpl_env = jinja2.Environment(loader=tpl_loader)
-    tpl = tpl_env.get_template("python3.jinja")
+    tpl = tpl_env.get_template(f'{to_language}.jinja')
 
     tpl.stream(poco=data).dump(to_file)
     logging.info('Done!')
