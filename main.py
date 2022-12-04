@@ -20,6 +20,8 @@ def list_languages_available() -> List[str]:
     files = os.listdir('code-templates')
     return [os.path.splitext(file)[0] for file in files]
 
+from subprocess import run
+
 @click.command()
 @click.option('-from', '--from-file', required=True, help='Path to the source YAML file', type=click.Path())
 @click.option('-to', '--to-file', required=True, help='Path to the generated code file', type=click.Path())
@@ -39,6 +41,11 @@ def main(from_file, to_file, to_language):
     tpl = tpl_env.get_template(f'{to_language}.jinja')
 
     tpl.stream(poco=data).dump(to_file)
+
+    proc = run(['php', '-l', to_file])
+    if proc.returncode == 0:
+        logging.info('Code validation complete')
+
     logging.info('Done!')
 
 if __name__ == '__main__':
