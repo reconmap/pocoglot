@@ -1,5 +1,9 @@
 <php declare(strict_types=1);
 
+{% if "namespace" in poco %}
+namespace {{ poco.namespace }};
+{%- endif %}
+
 {% if "description" in poco %}
 /**
  * {{ poco.description }}
@@ -7,7 +11,7 @@
 {%- endif %}
 class {{ poco.name }} {
 {% for prop in poco.props %}
-	public ${{ prop.name }};
+	public {{ prop.language_type }} ${{ prop.name }};
 {%- endfor %}
 }
 

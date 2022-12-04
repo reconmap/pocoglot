@@ -1,2 +1,3 @@
 tags
 *.php
+__pycache__

@@ -14,6 +14,8 @@ import jinja2
 
 import click
 
+from languages import Php8
+
 def list_languages_available() -> List[str]:
     files = os.listdir('code-templates')
     return [os.path.splitext(file)[0] for file in files]
@@ -28,6 +30,9 @@ def main(from_file, to_file, to_language):
         data = yaml.load(f, Loader=SafeLoader)
 
     logging.debug(data)
+
+    for prop in data["props"]:
+        prop["language_type"] = Php8().map_type(prop["type"])
 
     tpl_loader = jinja2.FileSystemLoader(searchpath="code-templates")
     tpl_env = jinja2.Environment(loader=tpl_loader)
