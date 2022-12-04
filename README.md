@@ -2,6 +2,10 @@
 
 Pocoglot is a simple command line application that takes an entity definition file and generates code in one of many supported languages. If you are writing multi-tier applications in multiple languages this tool can save you from a lot of repeated typing and out-of-sync models.
 
+### Supported languages
+
+<img src=".github/images/php-language.png" width="40"/>
+
 ## Usage example
 
 Create definition file `vulnerability.yaml`:
