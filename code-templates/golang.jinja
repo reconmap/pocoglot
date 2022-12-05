@@ -1,8 +1,10 @@
-from dataclasses import dataclass
+{% if "namespace" in poco %}
+package {{ poco.namespace }}
+{%- endif %}
 
-@dataclass
-class {{ poco.name }}:
-	name: str
-	unit: float
-	some: int = 0
+type {{ poco.name }} struct {
+{% for prop in poco.props %}
+	{{ prop.name }} {{ prop.language_type }}
+{%- endfor %}
+}
 

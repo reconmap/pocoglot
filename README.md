@@ -4,9 +4,9 @@ Pocoglot is a simple command line application that takes an entity definition fi
 
 ### Supported languages
 
-<img src=".github/images/python-language.png" width="40"/>
-
-<img src=".github/images/php-language.png" width="40" />
+* *Golang*
+* *Python 3*
+* *PHP 8*
 
 ## Usage example
 

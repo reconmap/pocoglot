@@ -2,3 +2,4 @@ tags
 *.php
 __pycache__
 *.py
+*.go
