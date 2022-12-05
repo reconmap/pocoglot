@@ -1,3 +1,4 @@
 tags
 *.php
 __pycache__
+*.py

@@ -14,13 +14,11 @@ import jinja2
 
 import click
 
-from languages import Php8
-
 def list_languages_available() -> List[str]:
     files = os.listdir('code-templates')
     return [os.path.splitext(file)[0] for file in files]
 
-from subprocess import run
+from importlib import import_module
 
 @click.command()
 @click.option('-from', '--from-file', required=True, help='Path to the source YAML file', type=click.Path())
@@ -33,8 +31,10 @@ def main(from_file, to_file, to_language):
 
     logging.debug(data)
 
+    lang_module = import_module(f'languages.{to_language}')
+
     for prop in data["props"]:
-        prop["language_type"] = Php8().map_type(prop["type"])
+        prop["language_type"] = lang_module.map_type(prop["type"])
 
     tpl_loader = jinja2.FileSystemLoader(searchpath="code-templates")
     tpl_env = jinja2.Environment(loader=tpl_loader)
@@ -42,9 +42,10 @@ def main(from_file, to_file, to_language):
 
     tpl.stream(poco=data).dump(to_file)
 
-    proc = run(['php', '-l', to_file])
-    if proc.returncode == 0:
+    if lang_module.is_valid(to_file):
         logging.info('Code validation complete')
+    else:
+        logging.warning('Validation failed')
 
     logging.info('Done!')
 
