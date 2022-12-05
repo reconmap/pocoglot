@@ -1,8 +1,4 @@
 tags
 *.php
 __pycache__
-*.py
-*.go
-*.cs
-*.ts
-*.java
+test.*
