@@ -4,7 +4,9 @@ Pocoglot is a simple command line application that takes an entity definition fi
 
 ### Supported languages
 
-<img src=".github/images/php-language.png" width="40"/>
+<img src=".github/images/python-language.png" width="40"/>
+
+<img src=".github/images/php-language.png" width="40" />
 
 ## Usage example
 
@@ -29,11 +31,10 @@ $ ./main.py -from vulnerability.yaml -to vulnerability.py -lang python3
 
 ## Support
 
-* Please star this project on Github
-* Report any issues and feature requests
-* Add pull requests to support new languages
+- Please star this project on Github
+- Report any issues and feature requests
+- Add pull requests to support new languages
 
 ## Related projects
 
-* [Quicktype](https://quicktype.io/)
-
+- [Quicktype](https://quicktype.io/)
