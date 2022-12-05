@@ -1,8 +1,5 @@
-from dataclasses import dataclass
-
-@dataclass
-class {{ poco.name }}:
-	name: str
-	unit: float
-	some: int = 0
-
+export default interface {{ poco.name }} {
+{% for prop in poco.props %}
+	{{ prop.name }}: {{ prop.language_type }}
+{%- endfor %}
+}

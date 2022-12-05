@@ -1,8 +1,7 @@
-from dataclasses import dataclass
 
-@dataclass
-class {{ poco.name }}:
-	name: str
-	unit: float
-	some: int = 0
+public class {{ poco.name }} {
+{% for prop in poco.props %}
+	public {{ prop.language_type }} {{ prop.name }} { get; set; }
+{%- endfor %}
+}
 

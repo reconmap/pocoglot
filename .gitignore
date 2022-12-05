@@ -3,3 +3,6 @@ tags
 __pycache__
 *.py
 *.go
+*.cs
+*.ts
+*.java
