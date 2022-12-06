@@ -1,7 +1,7 @@
 
 public class {{ poco.name }} {
 {% for prop in poco.props %}
-	public {{ prop.language_type }} {{ prop.name }} { get; set; }
+	public {{ prop.type }} {{ prop.name }} { get; set; }
 {%- endfor %}
 }
 

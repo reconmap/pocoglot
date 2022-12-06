@@ -1,7 +1,12 @@
+{% if "description" in poco %}
+/**
+ * {{ poco.description }}
+ */
+{%- endif %}
 class {{ poco.name }} {
 
 {% for prop in poco.props %}
-	public {{ prop.language_type }} {{ prop.name }};
+	public {{ prop.type }} {{ prop.name }};
 {%- endfor %}
 
 }

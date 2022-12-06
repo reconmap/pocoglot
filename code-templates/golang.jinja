@@ -4,7 +4,7 @@ package {{ poco.namespace }}
 
 type {{ poco.name }} struct {
 {% for prop in poco.props %}
-	{{ prop.name }} {{ prop.language_type }}
+	{{ prop.name }} {{ prop.type }}
 {%- endfor %}
 }
 

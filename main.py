@@ -2,6 +2,8 @@
 
 from typing import List
 
+import traceback
+
 import os
 import yaml
 from yaml.loader import SafeLoader
@@ -14,8 +16,10 @@ import jinja2
 
 import click
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def list_languages_available() -> List[str]:
-    files = os.listdir('code-templates')
+    files = os.listdir(os.path.join(SCRIPT_DIR, 'code-templates'))
     return [os.path.splitext(file)[0] for file in files]
 
 from importlib import import_module
@@ -33,21 +37,25 @@ def main(from_file, to_file, to_language):
 
     lang_module = import_module(f'languages.{to_language}')
 
-    for prop in data["props"]:
-        prop["language_type"] = lang_module.map_type(prop["type"])
+    lang_data = lang_module.modify_data(data)
 
-    tpl_loader = jinja2.FileSystemLoader(searchpath="code-templates")
-    tpl_env = jinja2.Environment(loader=tpl_loader)
+    logging.debug(lang_data)
+
+    tpl_loader = jinja2.FileSystemLoader(searchpath=os.path.join(SCRIPT_DIR, "code-templates"))
+    tpl_env = jinja2.Environment(loader=tpl_loader, undefined=jinja2.StrictUndefined)
     tpl = tpl_env.get_template(f'{to_language}.jinja')
 
-    tpl.stream(poco=data).dump(to_file)
+    try:
+        tpl.stream(poco=lang_data).dump(to_file)
+        logging.info('Done!')
 
-    if lang_module.is_valid(to_file):
-        logging.info('Code validation complete')
-    else:
-        logging.warning('Validation failed')
+        if lang_module.is_valid(to_file):
+            logging.info('Code validation complete')
+        else:
+            logging.warning('Validation failed')
+    except Exception as e:
+        logging.error(e)
 
-    logging.info('Done!')
 
 if __name__ == '__main__':
     main()

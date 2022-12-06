@@ -1,5 +1,11 @@
+{% if "description" in poco %}
+/**
+ * {{ poco.description }}
+ */
+{%- endif %}
 export default interface {{ poco.name }} {
 {% for prop in poco.props %}
-	{{ prop.name }}: {{ prop.language_type }}
+	{{ prop.name }}: {{ prop.type }}
 {%- endfor %}
 }
+
