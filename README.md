@@ -4,32 +4,12 @@ Pocoglot is a simple command line application that takes an entity definition fi
 
 ### Supported languages
 
-* **Golang**
+* [Golang](docs/golang.md)
 * **Python 3**
-* **PHP 8**
+* [PHP 8](docs/php.md)
 * **C#**
-* **Typescript**
-
-## Usage example
-
-Create definition file `vulnerability.yaml`:
-
-```yaml
-name: Vulnerability
-props:
-  - name: id
-    type: integer
-  - name: severity
-    type: float
-```
-
-Invoke command to generate `vulnerability.py`:
-
-```
-$ ./main.py -from vulnerability.yaml -to vulnerability.py -lang python3
-18:00:12.019 INFO Generating code in "python3" from "vulnerability.yaml" to "vulnerability.py"
-18:00:12.025 INFO Done!
-```
+* [Typescript](docs/typescript.md)
+* **MySQL** table
 
 ## Support
 
@@ -40,3 +20,7 @@ $ ./main.py -from vulnerability.yaml -to vulnerability.py -lang python3
 ## Related projects
 
 - [Quicktype](https://quicktype.io/)
+
+## License
+
+This software is published under the permissive [MIT license](LICENSE.md)
