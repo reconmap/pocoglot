@@ -1,11 +1,20 @@
 {% if "description" in poco %}
+
+interface {{ poco.name }}Interface {
+{% for prop in poco.props %}
+	{{ prop.name }}: {{ prop.type }};
+{%- endfor %}
+}
+
 /**
  * {{ poco.description }}
  */
 {%- endif %}
-export default interface {{ poco.name }} {
-{% for prop in poco.props %}
-	{{ prop.name }}: {{ prop.type }}
+const {{ poco.name }} : {{ poco.name }}Interface = {
+{% for prop in poco.props if "default" in prop %}
+	{{ prop.raw_name }}: {{ prop.default }},
 {%- endfor %}
 }
+
+export default {{ poco.name }};
 

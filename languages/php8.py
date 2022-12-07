@@ -7,6 +7,7 @@ TYPE_MAPPING = {
         "boolean": "bool",
         "string": "string",
         "float": "float",
+        None: "mixed",
 }
 
 def modify_data(data: dict) -> dict:

@@ -7,6 +7,7 @@ TYPE_MAPPING = {
         "boolean": "bool",
         "string": "string",
         "float": "float32", # @todo float64
+        None: "interface{}",
 }
 
 def modify_data(data: dict) -> dict:
