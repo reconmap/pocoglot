@@ -12,10 +12,6 @@ import jinja2
 import yaml
 from yaml.loader import SafeLoader
 
-coloredlogs.install(level=logging.DEBUG, fmt='%(asctime)s.%(msecs)03d %(levelname)s %(message)s',
-                    datefmt='%H:%M:%S', milliseconds=True)
-
-
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -29,7 +25,12 @@ def list_languages_available() -> List[str]:
 @click.option('-to', '--to-file', required=True, help='Path to where the targe code is going to be generated', type=click.Path())
 @click.option('-lang', '--to-language', required=True, help='Language used for the generated code', type=click.Choice(list_languages_available()))
 @click.option('-override', '--override-file', required=False, help='Path to the YAML file containing overrides', type=click.Path())
-def main(from_file, to_file, to_language, override_file):
+@click.option('-logging', '--logging-level', required=False, type=click.Choice(['INFO', 'DEBUG']), default='INFO')
+def main(from_file, to_file, to_language, override_file, logging_level):
+    logging_level = logging.getLevelName(logging_level)
+    coloredlogs.install(level=logging_level, fmt='%(asctime)s.%(msecs)03d %(levelname)s %(message)s',
+                        datefmt='%H:%M:%S', milliseconds=True)
+
     logging.info(
         f'Generating code in "{to_language}" from "{from_file}" to "{to_file}"')
     with open(from_file, 'r') as f:
