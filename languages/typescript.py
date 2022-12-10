@@ -29,10 +29,10 @@ def map_type(type_name: str) -> str:
 
 def format_value(value, prop_type) -> str:
     if type(value) == bool:
-        return value
+        return "true" if value else "false"
 
     if value is None:
-        return "null" if prop_type not in ["number"] else "undefined"
+        return "null" if prop_type not in ["number", "string"] else "undefined"
 
     return value
 

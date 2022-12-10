@@ -1,4 +1,3 @@
-{% if "description" in poco %}
 
 interface {{ poco.name }}Interface {
 {% for prop in poco.props %}
@@ -6,6 +5,7 @@ interface {{ poco.name }}Interface {
 {%- endfor %}
 }
 
+{% if "description" in poco %}
 /**
  * {{ poco.description }}
  */
