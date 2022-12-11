@@ -16,7 +16,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def list_languages_available() -> List[str]:
-    files = os.listdir(os.path.join(SCRIPT_DIR, 'code-templates'))
+    files = os.listdir(os.path.join(SCRIPT_DIR, 'templates'))
     return [os.path.splitext(file)[0] for file in files]
 
 
@@ -45,14 +45,14 @@ def main(from_file, to_file, to_language, override_file, logging_level):
 
     logging.debug(data)
 
-    lang_module = import_module(f'languages.{to_language}')
+    lang_module = import_module(f'.languages.{to_language}', package=__package__)
 
     lang_data = lang_module.modify_data(data)
 
     logging.debug(lang_data)
 
     tpl_loader = jinja2.FileSystemLoader(
-        searchpath=os.path.join(SCRIPT_DIR, "code-templates"))
+        searchpath=os.path.join(SCRIPT_DIR, "templates"))
     tpl_env = jinja2.Environment(
         loader=tpl_loader, undefined=jinja2.StrictUndefined)
     tpl = tpl_env.get_template(f'{to_language}.jinja')

@@ -2,3 +2,5 @@ tags
 *.php
 __pycache__
 test.*
+dist
+*.egg-info
