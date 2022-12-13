@@ -12,6 +12,8 @@ import jinja2
 import yaml
 from yaml.loader import SafeLoader
 
+from pocoglot import __version__
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -26,6 +28,7 @@ def list_languages_available() -> List[str]:
 @click.option('-lang', '--to-language', required=True, help='Language used for the generated code', type=click.Choice(list_languages_available()))
 @click.option('-override', '--override-file', required=False, help='Path to the YAML file containing overrides', type=click.Path())
 @click.option('-logging', '--logging-level', required=False, type=click.Choice(['INFO', 'DEBUG']), default='INFO')
+@click.version_option(version=__version__)
 def main(from_file, to_file, to_language, override_file, logging_level):
     logging_level = logging.getLevelName(logging_level)
     coloredlogs.install(level=logging_level, fmt='%(asctime)s.%(msecs)03d %(levelname)s %(message)s',
@@ -45,7 +48,8 @@ def main(from_file, to_file, to_language, override_file, logging_level):
 
     logging.debug(data)
 
-    lang_module = import_module(f'.languages.{to_language}', package=__package__)
+    lang_module = import_module(
+        f'.languages.{to_language}', package=__package__)
 
     lang_data = lang_module.modify_data(data)
 
