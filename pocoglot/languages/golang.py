@@ -14,7 +14,8 @@ def modify_data(data: dict) -> dict:
     new_data = copy.deepcopy(data) 
     for index, prop in enumerate(new_data["props"]):
         new_data["props"][index]["type"] = map_type(prop["type"])
-        new_data["props"][index]["name"] = format_variable_name(prop["name"])
+        new_data["props"][index]["name"] = prop["name"]
+        new_data["props"][index]["goname"] = format_variable_name(prop["name"])
     return new_data
 
 def map_type(type_name: str) -> str:

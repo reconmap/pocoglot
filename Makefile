@@ -1,6 +1,6 @@
 
 run:
-	./main.py
+	pocoglot/cli.py
 
 prepare:
 	pip install -r requirements.txt
