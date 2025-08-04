@@ -7,6 +7,7 @@ TYPE_MAPPING = {
         "boolean": "bool",
         "string": "string",
         "float": "float",
+        "any": "mixed",
         None: "mixed",
 }
 

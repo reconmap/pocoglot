@@ -1,20 +1,25 @@
 
-interface {{ poco.name }}Interface {
+interface {{ poco.name }} {
 {% for prop in poco.props %}
 	{{ prop.name }}: {{ prop.type }};
 {%- endfor %}
 }
+
+export { {{ poco.name }} };
 
 {% if "description" in poco %}
 /**
  * {{ poco.description }}
  */
 {%- endif %}
-const {{ poco.name }} : {{ poco.name }}Interface = {
+const default{{ poco.name }} : {{ poco.name }} = {
 {% for prop in poco.props if "default" in prop %}
 	{{ prop.raw_name }}: {{ prop.default }},
 {%- endfor %}
+{% for prop in poco.props if "default" not in prop and not prop["is_nullable"] %}
+	{{ prop.raw_name }}: undefined,
+{%- endfor %}
 }
 
-export default {{ poco.name }};
+export default default{{ poco.name }};
 

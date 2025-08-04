@@ -7,16 +7,18 @@ TYPE_MAPPING = {
     "boolean": "boolean",
     "string": "string",
     "float": "number",
+    "any": "any",
     None: "any",
 }
-
 
 def modify_data(data: dict) -> dict:
     new_data = copy.deepcopy(data)
     for index, prop in enumerate(new_data["props"]):
-        nullable_affix = '?' if "nullable" in prop and prop["nullable"] else ""
+        is_nullable = "nullable" in prop and prop["nullable"]
+        nullable_affix = '?' if is_nullable else ""
         new_data["props"][index]["raw_name"] = new_data["props"][index]["name"]
-        new_data["props"][index]["type"] = map_type(prop["type"])
+        new_data["props"][index]["is_nullable"] = is_nullable
+        new_data["props"][index]["type"] = map_type(prop["type"]) + (" | undefined" if not is_nullable else "")
         new_data["props"][index]["name"] = prop["name"] + nullable_affix
         if "default" in prop:
             new_data["props"][index]["default"] = format_value(prop["default"], prop["type"])
